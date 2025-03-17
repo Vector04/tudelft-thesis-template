@@ -63,6 +63,15 @@
   
   show: equate.with(breakable: true, sub-numbering: false)
   set math.equation(numbering: "(1)", supplement: "Eq.")
+
+  show heading.where(level:1): it => {
+    counter(math.equation).update(0)
+    it
+  }
+  set math.equation(numbering: it => {
+    let count = counter(heading.where(level: 1)).at(here()).first()
+    numbering("(1.1)", count, it)
+  })
     
   set par(
     justify: true,

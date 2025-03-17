@@ -42,7 +42,8 @@
   
   set text(
     size: normal,
-    lang: "en"
+    lang: "en",
+    region: "GB"
   )
 
 

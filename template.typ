@@ -110,17 +110,17 @@
       it
     }
   
-  show ref: it => {
+    show ref: it => {
     if it.element == none {
       // This is a citation, which is handled above.
       return it
     }
 
-    show regex("[\d]+"): set text(fill: olive)
+    show regex("[0-9]+.[0-9]+"): set text(fill: olive)
 
     // First check if it.element has "kind", which is not the case for footnotes.   
     if (it.element.has("kind")) and it.element.kind == math.equation {
-      show regex("[\d]+"): (x) => "(" + x + ")" 
+      show regex("^(\d+)(\.(\d+))*(\/(\d+))*-(\d+)$"): (x) => "(" + x + ")" 
       it
     } else {
       it

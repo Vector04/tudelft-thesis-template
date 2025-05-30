@@ -2,33 +2,55 @@
 
 #show: base.with(
   title: "My document",
-  name: "Victor Vreede",
-  email: "victor.vreede@student.tudelft.nl",
-  date: "December 2024",
+  name: "Your Name",
+  email: "yourname@example.com",
+  date: "January 2024",
   leftheader: "My document",
-  rightheader: "Victor Vreede"
+  rightheader: "Your Name"
 )
 
-#maketitle(
-  title: "My document",
-  name: "Victor Vreede",
-  email: "victor.vreede@student.tudelft.nl",
-  date: "December 2024"
-)
+
 
 #show: figures
 
+/* COVER PAGE */
+
+#makecoverpage(
+  img: image("img/cover-image.jpg"), 
+  title: [My Document], 
+  name: [Victor Vreede]
+)
+
+/* TITLE PAGE */
+
+#maketitlepage(
+  title: [My Document],
+  name: "Victor Vreede",
+  defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
+  student_number: 6099637,
+  project_duration: [January 2025 - September 2025],
+  daily_supervisor: [Your Daily supervisor],
+  cover_description: [Space and stuff],
+  [Supervisor 1], [TU Delft, Supervisor], [Committee member 2], [TU Delft], [Committee member 3], [TU Delft.]
+)
 
 
-/* To enable a Report-style document, uncomment the following line: */
 #show: report
+
+
+#heading(numbering: none, [Preface])
+#lorem(250)
+
+
+
+#heading(numbering: none, [Abstract])
+#lorem(250)
+
+
 #outline()
 
-
-
-
-
 = Introduction
+
 #lorem(50) Here is some more text, and a formula:
 $ e^(pi i) &= -1 #<eulers_formula> \
 (n+1)! &= integral_0^infinity t^n e^(-t) dif t #<cauchy_factorial> $
@@ -37,6 +59,8 @@ Here @eulers_formula is Euler's formula, and @cauchy_factorial is Cauchy's formu
 
 == Motivation
 #lorem(100)
+
+Here is some more text. #strong[This is bold text]
 
 
 // Adding a figure
@@ -86,4 +110,5 @@ Here is are chemical formulae: #chem[CuCrP2S6] #chem[H2O]. I learned this from @
 #show: appendix
 
 = The first Appendix
+
 = The second Appendix

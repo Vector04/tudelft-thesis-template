@@ -204,32 +204,6 @@
     }
     line(length: 100%)
   }
-  
-  // Rendered obselete as of typst 13.0
-  // show outline.entry: it => context {
-  //   if it.element.func() == heading {
-  //     let head = it.element 
-
-  //     let spacings = (0em, 2em, 4.3em, 6.9em)
-  //     let number_start = spacings.at(it.level - 1)
-  //     let body_start = spacings.at(it.level)
-
-  //     let number = if head.numbering != none {
-  //       numbering(head.numbering, ..counter(heading).at(head.location()))
-  //     } else {
-  //       ""
-  //     }
-
-  //     if head.numbering == none {
-  //       body_start = 0em
-  //     }
-      
-  //     let fill = box(width: 1fr, it.fill)
-      
-      
-  //     [#h(number_start) #link(head.location())[#box()[#number #h(body_start - number_start - measure(number).width - 3pt) #head.body]] #fill #it.page() #linebreak()] 
-  //   }
-  // }
 
   show outline.entry: it => {
     link(it.element.location())[
@@ -275,3 +249,126 @@
 
 
 
+#let makecoverpage(
+  img: image("../template/img/cover-image.jpg"),
+  title: none, 
+  name: none
+) = context {
+  let pw = page.width
+  let ph = page.height
+  set image(
+    width: pw,
+    height: ph,
+    fit: "cover")
+  set page(
+    background: img,
+      margin: 0pt
+    )
+  set par(first-line-indent: 0pt, justify: false, leading: 1.5em)
+
+  place(
+    left + horizon,
+    dx: 12pt,
+    rotate(-90deg, origin: center, reflow: true)[
+    #text(fill: white, font: "Roboto Slab")[Delft University of Technology]]
+    )
+
+    
+  place(
+    dy: 2cm,
+    rect(
+      width: 100%,
+      inset: 30pt,
+      fill: color.hsv(0deg, 0%, 0%, 50%),
+    )[
+      #text(
+        fill: white,
+        size: 45pt,
+        font: "Roboto Slab",
+        weight: "light",
+      )[
+        #title
+      ]
+      #linebreak()
+      #v(10pt)
+      #text(
+        fill: white,
+        size: 30pt,
+        font: "Roboto Slab",
+        weight: "light",
+      )[
+        #name
+      ]
+    ]
+  )
+
+
+  set image(width: 6cm)
+  place(
+    bottom,
+    dx: 1cm,
+    
+    image("../template/img/TUDelft_logo_white.svg", width: 6cm, height: auto, fit: "contain")
+  )
+
+}
+  
+
+#let maketitlepage(
+  title: none,
+  name: none,
+  defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
+  student_number: none,
+  project_duration: none,
+  daily_supervisor: none,
+  cover_description: none,
+  ..thesis_committee
+) = {
+  show par: set align(center)
+  set par(spacing: 1.3em, justify: false)
+  set page(numbering: none, margin: (bottom: 0pt))
+
+  text(size: 40pt, font: "Roboto Slab", weight: "light")[#title]
+  v(-15pt)
+  
+  [by]
+  parbreak()
+  text(size: 25pt, font: "Roboto Slab", weight: "light")[#name]
+  parbreak()
+  [to obtain the degree of Master of Science]
+  //ter verkrijging van de graad van Master of Science
+  parbreak()
+  [at the Delft University of Technology,]
+  //aan de Technische Universiteit Delft,
+  parbreak()
+  [to be defended publicly on #defense_date]
+  //in het openbaar de verdedigen op maandag 1 januari om 10:00 uur.
+  v(40pt)
+  // [..#thesis_committee]
+  // let thesis_committee = ([p1], [p2], [p3], [p4])
+  
+  // place(
+  //   auto,
+  //   float: true,
+  align(center)[#table(
+      columns: (4cm, 4cm, 4cm),
+      stroke: none,
+      align: (right, left, left),
+      [Student number:], table.cell(colspan: 2)[#student_number],
+      [Project Duration:], table.cell(colspan: 2)[#project_duration],
+      [Daily Supervisor:], table.cell(colspan: 2)[#daily_supervisor],
+      [Thesis Committee:], table.cell(rowspan: 3, colspan: 2)[#table(columns: (4cm, 4cm), stroke: none, align: (left, left), inset: 0pt, row-gutter: 10pt, ..thesis_committee)]
+    )]
+  // )
+
+  v(20pt)
+
+  [Cover: #cover_description]
+
+  v(1fr)
+[An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").]
+  // v()
+
+  align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]
+    
+} 

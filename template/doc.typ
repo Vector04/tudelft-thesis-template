@@ -6,7 +6,7 @@
   email: "yourname@example.com",
   date: "January 2024",
   leftheader: "My document",
-  rightheader: "Your Name"
+  rightheader: "Your Name",
 )
 
 
@@ -16,9 +16,9 @@
 /* COVER PAGE */
 
 #makecoverpage(
-  img: image("img/cover-image.jpg"), 
-  title: [My Document], 
-  name: [Victor Vreede]
+  img: image("img/cover-image.jpg"),
+  title: [My Document],
+  name: [Victor Vreede],
 )
 
 /* TITLE PAGE */
@@ -26,12 +26,20 @@
 #maketitlepage(
   title: [My Document],
   name: "Victor Vreede",
-  defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
+  defense_date: datetime
+    .today()
+    .display("[weekday] [month repr:long] [day], [year]")
+    + " at 10:00",
   student_number: 6099637,
   project_duration: [January 2025 - September 2025],
   daily_supervisor: [Your Daily supervisor],
   cover_description: [Space and stuff],
-  [Supervisor 1], [TU Delft, Supervisor], [Committee member 2], [TU Delft], [Committee member 3], [TU Delft.]
+  [Supervisor 1],
+  [TU Delft, Supervisor],
+  [Committee member 2],
+  [TU Delft],
+  [Committee member 3],
+  [TU Delft.],
 )
 
 
@@ -52,8 +60,10 @@
 = Introduction
 
 #lorem(50) Here is some more text, and a formula:
-$ e^(pi i) &= -1 #<eulers_formula> \
-(n+1)! &= integral_0^infinity t^n e^(-t) dif t #<cauchy_factorial> $
+$
+  e^(pi i) & = -1 #<eulers_formula>                                     \
+    (n+1)! & = integral_0^infinity t^n e^(-t) dif t #<cauchy_factorial>
+$
 Here @eulers_formula is Euler's formula, and @cauchy_factorial is Cauchy's formula for a factorial.
 
 
@@ -101,10 +111,7 @@ Here is are chemical formulae: #chem[CuCrP2S6] #chem[H2O]. I learned this from @
 
 
 
-#bibliography(
-  "references.bib", 
-  style: "american-physics-society", 
-)
+#bibliography("references.bib", style: "american-physics-society")
 
 
 #show: appendix

@@ -1,5 +1,5 @@
 #import "@preview/physica:0.9.4": *
-#import "@preview/unify:0.7.0": num,qty,numrange,qtyrange
+#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
 #import "@preview/equate:0.3.1": equate
 
 #let small = 10pt
@@ -18,43 +18,34 @@
   rightheader: none,
   body,
 ) = {
-  set document(
-    title: title, 
-    author: name, 
-    date: none
-  )
-  
+  set document(title: title, author: name, date: none)
+
   set page(
     paper: "a4",
     margin: (x: 1in, y: 1in, top: 1in + 10pt),
-    numbering: "1"
-  )
-  
-  set text(
-    size: normal,
-    lang: "en",
-    region: "GB"
+    numbering: "1",
   )
 
+  set text(size: normal, lang: "en", region: "GB")
 
 
   /* === FONTS === */
   /* OPTION 1 */
-  
+
   set text(font: "STIX Two Text")
   show math.equation: set text(font: "STIX Two Math")
 
   /* OPTION 2 */
-  
+
   // set text(font: "Lora")
   // show math.equation: set text(font: "New Computer Modern Math", size: 11.2pt)
 
   /* === END FONTS === */
-  
+
   show: equate.with(breakable: true, sub-numbering: false)
   set math.equation(numbering: "(1)", supplement: "Eq.")
 
-  show heading.where(level:1): it => {
+  show heading.where(level: 1): it => {
     counter(math.equation).update(0)
     it
   }
@@ -62,17 +53,15 @@
     let count = counter(heading.where(level: 1)).at(here()).first()
     numbering("(1.1)", count, it)
   })
-    
+
   set par(
     justify: true,
     first-line-indent: 1.8em,
     spacing: 0.7em,
-    leading: .77em
+    leading: .77em,
   )
 
-  set heading(
-    numbering: "1.1.1"
-  )
+  set heading(numbering: "1.1.1")
   show heading: set block(above: 1em, below: .5em + 5pt)
 
   show heading.where(level: 2): it => {
@@ -86,21 +75,21 @@
   }
 
   show heading: it => {
-    if (it.depth >= 2) { 
-      block(counter(heading).display(it.numbering) + h(1em) + it.body) 
+    if (it.depth >= 2) {
+      block(counter(heading).display(it.numbering) + h(1em) + it.body)
     } else {
-      it 
-    }
-  }
-  
-   show cite: it => {
-      // Only color the number, not the brackets.
-      show regex("\d+"): set text(fill: blue)
-      // or regex("[\p{L}\d+]+") when using the alpha-numerical style
       it
     }
-  
-    show ref: it => {
+  }
+
+  show cite: it => {
+    // Only color the number, not the brackets.
+    show regex("\d+"): set text(fill: blue)
+    // or regex("[\p{L}\d+]+") when using the alpha-numerical style
+    it
+  }
+
+  show ref: it => {
     if it.element == none {
       // This is a citation, which is handled above.
       return it
@@ -108,9 +97,9 @@
 
     show regex("[0-9]+.[0-9]+"): set text(fill: olive)
 
-    // First check if it.element has "kind", which is not the case for footnotes.   
+    // First check if it.element has "kind", which is not the case for footnotes.
     if (it.element.has("kind")) and it.element.kind == math.equation {
-      show regex("^(\d+)(\.(\d+))*(\/(\d+))*-(\d+)$"): (x) => "(" + x + ")" 
+      show regex("^(\d+)(\.(\d+))*(\/(\d+))*-(\d+)$"): x => "(" + x + ")"
       it
     } else {
       it
@@ -118,27 +107,27 @@
   }
 
   body
-
 }
 
 
 
 
 #let figures(body) = {
-
   let getNumbering(it) = {
-    if it.kind == table { 
-      "I" 
+    if it.kind == table {
+      "I"
     } else {
-     it.numbering
+      it.numbering
     }
   }
-  
+
   show figure.caption: c => {
     text(size: small)[
-      #context {text(weight: "bold")[
-        #c.supplement #c.counter.display(getNumbering(c))#c.separator
-      ]} 
+      #context {
+        text(weight: "bold")[
+          #c.supplement #c.counter.display(getNumbering(c))#c.separator
+        ]
+      }
       #c.body
     ]
   }
@@ -151,16 +140,13 @@
       c
     }
   }
-  
-  show figure.where(
-    kind: table
-  ): set figure.caption(position: top)
+
+  show figure.where(kind: table): set figure.caption(position: top)
 
   body
 }
 
 #let report(body) = {
-  
   set page(
     header: context {
       let currpage = counter(page).get().first()
@@ -171,34 +157,35 @@
         let num = if it.numbering != none {
           numbering(it.numbering, ..counter(heading).at(it.location()))
         }
-      smallcaps[Chapter #num: #it.body]
+        smallcaps[Chapter #num: #it.body]
       })
 
-      
+
       if currpage not in chapterpages [
         #headings.at(-1, default: "") #h(1fr) Victor Vreede
-      #v(-3pt)
-      #line(length: 100%)
+        #v(-3pt)
+        #line(length: 100%)
       ]
-    
     },
-    numbering: "1"
+    numbering: "1",
   )
 
   show heading.where(level: 1): it => {
     let chapternum = counter(heading).get().first()
-    
+
     pagebreak()
     v(-30pt)
     set par(justify: false)
     box(
-    text(size: 25pt)[
-      #it.body
-    ], width: 80%)
+      text(size: 25pt)[
+        #it.body
+      ],
+      width: 80%,
+    )
     h(1fr)
 
     if it.numbering != none {
-      text(size: 70pt, fill: rgb(80,80,80), weight: "semibold")[
+      text(size: 70pt, fill: rgb(80, 80, 80), weight: "semibold")[
         #numbering(it.numbering, chapternum)
       ]
     }
@@ -207,13 +194,9 @@
 
   show outline.entry: it => {
     link(it.element.location())[
-      #it.indented(
-        it.prefix(),
-        it.inner(),
-        gap: 1.4em
-    )]
+      #it.indented(it.prefix(), it.inner(), gap: 1.4em)]
   }
-  
+
   show outline.entry.where(level: 1): it => {
     show repeat: none
     v(11pt)
@@ -235,94 +218,77 @@
 
 #let chem(body) = {
   show regex("[\d]+"): sub
-  body 
+  body
 }
 
 
 #let switch-page-numbering() = {
-
   // to do: get updated page numbers to work
   counter(page).update(1)
-  set page(numbering: "1",)
-  
+  set page(numbering: "1")
 }
 
 
 
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),
-  title: none, 
-  name: none
+  title: none,
+  name: none,
 ) = context {
   let pw = page.width
   let ph = page.height
-  set image(
-    width: pw,
-    height: ph,
-    fit: "cover")
-  set page(
-    background: img,
-      margin: 0pt
-    )
+  set image(width: pw, height: ph, fit: "cover")
+  set page(background: img, margin: 0pt)
   set par(first-line-indent: 0pt, justify: false, leading: 1.5em)
 
-  place(
-    left + horizon,
-    dx: 12pt,
-    rotate(-90deg, origin: center, reflow: true)[
-    #text(fill: white, font: "Roboto Slab")[Delft University of Technology]]
-    )
+  place(left + horizon, dx: 12pt, rotate(-90deg, origin: center, reflow: true)[
+    #text(fill: white, font: "Roboto Slab")[Delft University of Technology]])
 
-    
-  place(
-    dy: 2cm,
-    rect(
-      width: 100%,
-      inset: 30pt,
-      fill: color.hsv(0deg, 0%, 0%, 50%),
-    )[
-      #text(
-        fill: white,
-        size: 45pt,
-        font: "Roboto Slab",
-        weight: "light",
-      )[
-        #title
-      ]
-      #linebreak()
-      #v(10pt)
-      #text(
-        fill: white,
-        size: 30pt,
-        font: "Roboto Slab",
-        weight: "light",
-      )[
-        #name
-      ]
+
+  place(dy: 2cm, rect(width: 100%, inset: 30pt, fill: color.hsv(
+    0deg,
+    0%,
+    0%,
+    50%,
+  ))[
+    #text(fill: white, size: 45pt, font: "Roboto Slab", weight: "light")[
+      #title
     ]
-  )
+    #linebreak()
+    #v(10pt)
+    #text(fill: white, size: 30pt, font: "Roboto Slab", weight: "light")[
+      #name
+    ]
+  ])
 
 
   set image(width: 6cm)
   place(
     bottom,
     dx: 1cm,
-    
-    image("../template/img/TUDelft_logo_white.svg", width: 6cm, height: auto, fit: "contain")
-  )
 
+    image(
+      "../template/img/TUDelft_logo_white.svg",
+      width: 6cm,
+      height: auto,
+      fit: "contain",
+    ),
+  )
 }
-  
+
 
 #let maketitlepage(
   title: none,
   name: none,
-  defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
+  defense_date: datetime
+    .today()
+    .display("[weekday] [month repr:long] [day], [year]")
+    + " at 10:00",
   student_number: none,
   project_duration: none,
   daily_supervisor: none,
   cover_description: none,
-  ..thesis_committee
+  ..thesis_committee,
 ) = {
   show par: set align(center)
   set par(spacing: 1.3em, justify: false)
@@ -330,7 +296,7 @@
 
   text(size: 40pt, font: "Roboto Slab", weight: "light")[#title]
   v(-15pt)
-  
+
   [by]
   parbreak()
   text(size: 25pt, font: "Roboto Slab", weight: "light")[#name]
@@ -346,7 +312,7 @@
   v(40pt)
   // [..#thesis_committee]
   // let thesis_committee = ([p1], [p2], [p3], [p4])
-  
+
   // place(
   //   auto,
   //   float: true,
@@ -357,7 +323,14 @@
       [Student number:], table.cell(colspan: 2)[#student_number],
       [Project Duration:], table.cell(colspan: 2)[#project_duration],
       [Daily Supervisor:], table.cell(colspan: 2)[#daily_supervisor],
-      [Thesis Committee:], table.cell(rowspan: 3, colspan: 2)[#table(columns: (4cm, 4cm), stroke: none, align: (left, left), inset: 0pt, row-gutter: 10pt, ..thesis_committee)]
+      [Thesis Committee:],
+      table.cell(rowspan: 3, colspan: 2)[#table(columns: (
+            4cm,
+            4cm,
+          ), stroke: none, align: (
+            left,
+            left,
+          ), inset: 0pt, row-gutter: 10pt, ..thesis_committee)],
     )]
   // )
 
@@ -366,9 +339,8 @@
   [Cover: #cover_description]
 
   v(1fr)
-[An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").]
+  [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").]
   // v()
 
   align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]
-    
-} 
+}

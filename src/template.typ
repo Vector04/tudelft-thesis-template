@@ -27,16 +27,6 @@
   set page(
     paper: "a4",
     margin: (x: 1in, y: 1in, top: 1in + 10pt),
-    header: context {
-      if leftheader != none or rightheader != none {
-        let currpage = counter(page).get().first()
-        if currpage > 1 [
-          #leftheader #h(1fr) #rightheader
-          #v(-3pt)
-          #line(length: 100%)
-        ]
-      }
-    },
     numbering: "1"
   )
   
@@ -131,26 +121,7 @@
 
 }
 
-#let maketitle(title: none,
-  name: none,
-  email: none,
-  date: datetime.today().display("[day] [month repr:long] [year]")
-) = {
-  v(-15pt)
-  show par: set align(center)
-  set par(spacing: 1.3em)
-  
-    text(20pt)[#title]
-    parbreak()
-    text(14pt)[#name]
-    parbreak()
-    text(12pt)[
-     #link("mailto:" + email)
-    ]
-    v(3pt)
-    date
-    v(10pt)
-} 
+
 
 
 #let figures(body) = {
@@ -205,7 +176,7 @@
 
       
       if currpage not in chapterpages [
-       #headings.last() #h(1fr) Victor Vreede
+        #headings.at(-1, default: "") #h(1fr) Victor Vreede
       #v(-3pt)
       #line(length: 100%)
       ]
@@ -302,5 +273,5 @@
   
 }
 
-  
+
 

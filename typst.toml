@@ -1,0 +1,14 @@
+[package]
+name = "victor-thesis"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Victor Vreede"]
+license = "MIT"
+description = "Victor's template for a thesis written in Typst"
+compiler = "0.13.1"
+
+[template]
+path = "template"
+entrypoint = "doc.typ"
+thumbnail = "thumbnail.png"
+

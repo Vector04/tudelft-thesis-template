@@ -1,4 +1,4 @@
-#import "template.typ" : *
+#import "@local/victor-thesis:0.1.0": *
 
 #show: base.with(
   title: "My document",
@@ -80,7 +80,6 @@ Here is are chemical formulae: #chem[CuCrP2S6] #chem[H2O]. I learned this from @
 #bibliography(
   "references.bib", 
   style: "american-physics-society", 
-  full: true
 )
 
 

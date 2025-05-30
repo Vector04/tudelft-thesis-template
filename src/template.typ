@@ -51,7 +51,7 @@
   /* === FONTS === */
   /* OPTION 1 */
   
-  set text(font: "XCharter")
+  set text(font: "STIX Two Text")
   show math.equation: set text(font: "STIX Two Math")
 
   /* OPTION 2 */

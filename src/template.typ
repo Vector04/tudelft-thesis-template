@@ -1,6 +1,8 @@
 #import "@preview/physica:0.9.4": *
 #import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
 #import "@preview/equate:0.3.1": equate
+#import "@preview/mitex:0.2.5": *
+#import "@preview/wrap-it:0.1.1": wrap-content
 
 #let small = 10pt
 #let normal = 11pt
@@ -43,16 +45,15 @@
   /* === END FONTS === */
 
   show: equate.with(breakable: true, sub-numbering: false)
-  set math.equation(numbering: "(1)", supplement: "Eq.")
+  set math.equation(supplement: "Eq.")
 
-  show heading.where(level: 1): it => {
-    counter(math.equation).update(0)
-    it
-  }
-  set math.equation(numbering: it => {
-    let count = counter(heading.where(level: 1)).at(here()).first()
-    numbering("(1.1)", count, it)
-  })
+  set math.equation(numbering: (..num) =>
+    numbering("(1.1)", counter(heading).get().first(), num.pos().first())
+  )
+
+  set figure(numbering: (..num) =>
+    numbering("1.1", counter(heading).get().first(), num.pos().first())
+  )
 
   set par(
     justify: true,
@@ -106,6 +107,8 @@
     }
   }
 
+  show regex(" - "): [ #sym.dash ]
+
   body
 }
 
@@ -132,6 +135,8 @@
     ]
   }
 
+  // if caption size is longer than page, justify left
+
   show figure.caption: c => context {
     if measure(c).width > (page.width - page.margin.left - page.margin.right) {
       set align(left)
@@ -154,10 +159,12 @@
         chapter.location().page()
       })
       let headings = query(heading.where(level: 1).before(here())).map(it => {
-        let num = if it.numbering != none {
-          numbering(it.numbering, ..counter(heading).at(it.location()))
+        if it.numbering != none {
+          let num = numbering(it.numbering, ..counter(heading).at(it.location()))
+          smallcaps[Chapter #num: #it.body]
+        } else {
+          smallcaps[#it.body]
         }
-        smallcaps[Chapter #num: #it.body]
       })
 
 
@@ -190,6 +197,16 @@
       ]
     }
     line(length: 100%)
+  }
+
+  // For some reason, this needs to be after we have function for our fancy heading. Very weird. 
+
+  show heading.where(level: 1): it => {
+    counter(figure.where(kind: raw)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(figure.where(kind: image)).update(0)
+    counter(math.equation).update(0)
+    it
   }
 
   show outline.entry: it => {

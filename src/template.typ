@@ -51,9 +51,7 @@
     numbering("(1.1)", counter(heading).get().first(), num.pos().first())
   )
 
-  set figure(numbering: (..num) =>
-    numbering("1.1", counter(heading).get().first(), num.pos().first())
-  )
+  set figure(numbering: (..num) => numbering("1.1", counter(heading).get().first(), num.pos().first()))
 
   set par(
     justify: true,
@@ -111,9 +109,6 @@
 
   body
 }
-
-
-
 
 #let figures(body) = {
   let getNumbering(it) = {
@@ -216,14 +211,14 @@
     h(1fr)
 
     if it.numbering != none {
-      text(size: 70pt, fill: rgb(80, 80, 80), weight: "semibold")[
+      text(size: 70pt, fill: rgb(80, 80, 80), weight: "semibold", font: "Lora")[
         #numbering(it.numbering, chapternum)
       ]
     }
     line(length: 100%)
   }
 
-  // For some reason, this needs to be after we have function for our fancy heading. Very weird. 
+  // For some reason, this needs to be after we have function for our fancy heading. Very weird.
 
   show heading.where(level: 1): it => {
     counter(figure.where(kind: raw)).update(0)
@@ -249,11 +244,15 @@
   body
 }
 
-
-
 #let appendix(body) = {
   set heading(numbering: "A", supplement: [Appendix])
   counter(heading).update(0)
+
+  set math.equation(numbering: (..num) => numbering("(A.1)", counter(heading).get().first(), num.pos().first()))
+
+  set figure(numbering: (..num) => numbering("A.1", counter(heading).get().first(), num.pos().first()))
+
+
   body
 }
 
@@ -262,14 +261,11 @@
   body
 }
 
-
 #let switch-page-numbering() = {
   // to do: get updated page numbers to work
   counter(page).update(1)
   set page(numbering: "1")
 }
-
-
 
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),
@@ -317,14 +313,10 @@
   )
 }
 
-
 #let maketitlepage(
   title: none,
   name: none,
-  defense_date: datetime
-    .today()
-    .display("[weekday] [month repr:long] [day], [year]")
-    + " at 10:00",
+  defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
   student_number: none,
   project_duration: none,
   daily_supervisor: none,

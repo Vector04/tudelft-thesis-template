@@ -2,7 +2,7 @@
 #import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
 #import "@preview/equate:0.3.1": equate
 #import "@preview/mitex:0.2.5": *
-#import "@preview/wrap-it:0.1.1": wrap-content
+#import "@preview/wrap-it:0.1.1": wrap-content as wrap_content_original
 
 #let small = 10pt
 #let normal = 11pt
@@ -149,6 +149,30 @@
   show figure.where(kind: table): set figure.caption(position: top)
 
   body
+}
+
+#let wrap-content(
+  fixed,
+  to-wrap,
+  alignment: top + left,
+  size: auto,
+  ..grid-kwargs,
+) = {
+  // Modifying the wrap-content function from the wrap-it package for extra styling.
+  // Wrap caption to figure width and text align left
+
+  show figure: it => {
+    let w = measure(it.body).width
+
+    show figure.caption: cap => box(width: w, [
+      #set par(justify: true)
+      #set align(left)
+      #cap
+    ])
+    it
+  }
+
+  wrap_content_original(fixed, to-wrap, align: alignment, size: size, ..grid-kwargs)
 }
 
 #let report(body) = {

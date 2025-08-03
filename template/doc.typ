@@ -16,20 +16,20 @@
 #makecoverpage(
   img: image("img/cover-image.jpg"),
   title: [My Document],
-  name: [Victor Vreede],
+  name: [Your Name],
 )
 
 /* TITLE PAGE */
 
 #maketitlepage(
   title: [My Document],
-  name: "Victor Vreede",
+  name: "Your Name",
   defense_date: datetime
     .today()
     .display("[weekday] [month repr:long] [day], [year]")
     + " at 10:00",
-  student_number: 6099637,
-  project_duration: [January 2025 - September 2025],
+  student_number: 1234567,
+  project_duration: [Starting month and year - Ending month and year],
   daily_supervisor: [Your Daily supervisor],
   cover_description: [Space and stuff],
   [Supervisor 1],

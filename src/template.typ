@@ -16,8 +16,6 @@
   name: none,
   email: none,
   date: datetime.today().display("[day] [month repr:long] [year]"),
-  leftheader: none,
-  rightheader: none,
   body,
 ) = {
   set document(title: title, author: name, date: none)

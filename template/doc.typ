@@ -5,8 +5,6 @@
   name: "Your Name",
   email: "yourname@example.com",
   date: "January 2024",
-  leftheader: "My document",
-  rightheader: "Your Name",
 )
 
 

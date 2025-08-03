@@ -24,7 +24,7 @@
 
   set page(
     paper: "a4",
-    margin: (x: 1in, y: 1in, top: 1in+5pt),
+    margin: (x: 1in, y: 1in, top: 1in + 5pt),
     numbering: "1",
   )
 

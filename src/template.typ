@@ -53,9 +53,7 @@
   show: equate.with(breakable: true, sub-numbering: false)
   set math.equation(supplement: "Eq.")
 
-  set math.equation(numbering: (..num) =>
-    numbering("(1.1)", counter(heading).get().first(), num.pos().first())
-  )
+  set math.equation(numbering: (..num) => numbering("(1.1)", counter(heading).get().first(), num.pos().first()))
 
   set figure(numbering: (..num) => numbering("1.1", counter(heading).get().first(), num.pos().first()))
 

@@ -24,7 +24,7 @@
 
   set page(
     paper: "a4",
-    margin: (x: 1in, y: 1in, top: 1in + 10pt),
+    margin: (x: 1in, y: 1in, top: 1in+5pt),
     numbering: "1",
   )
 
@@ -197,6 +197,7 @@
         #headings.at(-1, default: "") #h(1fr) Victor Vreede
         #v(-3pt)
         #line(length: 100%)
+        #v(-5pt)
       ]
     },
     numbering: "1",

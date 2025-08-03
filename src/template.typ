@@ -42,6 +42,12 @@
   // set text(font: "Lora")
   // show math.equation: set text(font: "New Computer Modern Math", size: 11.2pt)
 
+
+  /* OPTION 3 */
+  // set text(font: "XCharter")
+  // show math.equation: set text(font: "XCharter Math")
+  // set text(font: "PT Serif")
+
   /* === END FONTS === */
 
   show: equate.with(breakable: true, sub-numbering: false)

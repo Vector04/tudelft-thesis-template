@@ -100,7 +100,7 @@
       return it
     }
 
-    show regex("[0-9]+.[0-9]+"): set text(fill: olive)
+    show regex("([0-9]+\.[0-9]+\.[0-9]+)|([0-9]+\.[0-9]+)|([0-9]+)"): set text(fill: olive)
 
     // First check if it.element has "kind", which is not the case for footnotes.
     if (it.element.has("kind")) and it.element.kind == math.equation {

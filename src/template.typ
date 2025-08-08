@@ -137,6 +137,26 @@
 
   show figure.where(kind: table): set figure.caption(position: top)
 
+  let figure_spacing = 0.75em // Additional spacing between figures and the text, https://stackoverflow.com/questions/78622060/add-spacing-around-figure-in-typst
+  show figure: it => {
+    if it.placement == none {
+      block(it, inset: (y: figure_spacing))
+    } else if it.placement == top {
+      place(
+        it.placement,
+        float: true,
+        block(width: 100%, inset: (bottom: figure_spacing), align(center, it)),
+      )
+    } else if it.placement == bottom {
+      place(
+        it.placement,
+        float: true,
+        block(width: 100%, inset: (top: figure_spacing), align(center, it)),
+      )
+    }
+  }
+
+
   body
 }
 

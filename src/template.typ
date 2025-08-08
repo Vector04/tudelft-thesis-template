@@ -113,19 +113,11 @@
 }
 
 #let figures(body) = {
-  let getNumbering(it) = {
-    if it.kind == table {
-      "I"
-    } else {
-      it.numbering
-    }
-  }
-
   show figure.caption: c => {
     text(size: small)[
       #context {
         text(weight: "bold")[
-          #c.supplement #c.counter.display(getNumbering(c))#c.separator
+          #c.supplement #c.counter.display(c.numbering)#c.separator
         ]
       }
       #c.body

@@ -11,6 +11,8 @@
 #let LARGE = 18pt
 #let huge = 25pt
 
+#let in-preface-section = state("in-preface-section", true)
+
 #let base(
   title: none,
   name: none,
@@ -23,7 +25,11 @@
   set page(
     paper: "a4",
     margin: (x: 1in, y: 1in, top: 1in + 5pt),
-    numbering: "1",
+    footer: context [
+      #set align(center)
+      #numbering(if in-preface-section.get() { "i" } else { "1" }, ..counter(page).get())
+    ],
+    numbering: "i"
   )
 
   set text(size: normal, lang: "en", region: "GB")
@@ -189,7 +195,7 @@
 
   set page(
     header: context {
-      let currpage = counter(page).get().first()
+      let currpage = here().page()
       let chapterpages = query(heading.where(level: 1)).map(chapter => {
         chapter.location().page()
       })
@@ -210,7 +216,6 @@
         #v(-5pt)
       ]
     },
-    numbering: "1",
   )
 
   show heading.where(level: 1): it => {
@@ -278,11 +283,6 @@
   body
 }
 
-#let switch-page-numbering() = {
-  // to do: get updated page numbers to work
-  counter(page).update(1)
-  set page(numbering: "1")
-}
 
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),
@@ -342,7 +342,7 @@
 ) = {
   show par: set align(center)
   set par(spacing: 1.3em, justify: false)
-  set page(numbering: none, margin: (bottom: 0pt))
+  set page(margin: (bottom: 0pt))
 
   text(size: 40pt, font: "Roboto Slab", weight: "light")[#title]
   v(-15pt)

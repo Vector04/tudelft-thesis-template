@@ -367,21 +367,21 @@
   //   auto,
   //   float: true,
   align(center)[#table(
-      columns: (4cm, 4cm, 4cm),
-      stroke: none,
-      align: (right, left, left),
-      [Student number:], table.cell(colspan: 2)[#student_number],
-      [Project Duration:], table.cell(colspan: 2)[#project_duration],
-      [Daily Supervisor:], table.cell(colspan: 2)[#daily_supervisor],
-      [Thesis Committee:],
-      table.cell(rowspan: 3, colspan: 2)[#table(columns: (
-            4cm,
-            4cm,
-          ), stroke: none, align: (
-            left,
-            left,
-          ), inset: 0pt, row-gutter: 10pt, ..thesis_committee)],
-    )]
+    columns: (4cm, 4cm, 4cm),
+    stroke: none,
+    align: (right, left, left),
+    [Student number:], table.cell(colspan: 2)[#student_number],
+    [Project Duration:], table.cell(colspan: 2)[#project_duration],
+    [Daily Supervisor:], table.cell(colspan: 2)[#daily_supervisor],
+    [Thesis Committee:],
+    table.cell(rowspan: 3, colspan: 2)[#table(columns: (
+        4cm,
+        4cm,
+      ), stroke: none, align: (
+        left,
+        left,
+      ), inset: 0pt, row-gutter: 10pt, ..thesis_committee)],
+  )]
   // )
 
   v(20pt)

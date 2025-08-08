@@ -185,6 +185,8 @@
 }
 
 #let report(body) = {
+  set heading(supplement: [Chapter])
+
   set page(
     header: context {
       let currpage = counter(page).get().first()
@@ -194,7 +196,7 @@
       let headings = query(heading.where(level: 1).before(here())).map(it => {
         if it.numbering != none {
           let num = numbering(it.numbering, ..counter(heading).at(it.location()))
-          smallcaps[Chapter #num: #it.body]
+          smallcaps[#it.supplement #num: #it.body]
         } else {
           smallcaps[#it.body]
         }

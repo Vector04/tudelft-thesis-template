@@ -11,7 +11,7 @@
 #let LARGE = 18pt
 #let huge = 25pt
 
-#let in-preface-section = state("in-preface-section", true)
+#let in-appendix-part = state("in-appendix-part", false)
 
 #let base(
   title: none,
@@ -25,11 +25,7 @@
   set page(
     paper: "a4",
     margin: (x: 1in, y: 1in, top: 1in + 5pt),
-    footer: context [
-      #set align(center)
-      #numbering(if in-preface-section.get() { "i" } else { "1" }, ..counter(page).get())
-    ],
-    numbering: "i"
+    numbering: "i",
   )
 
   set text(size: normal, lang: "en", region: "GB")
@@ -115,6 +111,17 @@
 
   show regex(" - "): [ #sym.dash ]
 
+  set list(
+    indent: 6pt,
+    marker: (
+      [
+        #v(2.5pt) #circle(radius: 2pt, fill: white, stroke: 0.5pt + black)],
+      [‣],
+      [#sym.dash],
+    ),
+  )
+
+
   body
 }
 
@@ -191,7 +198,15 @@
 }
 
 #let report(body) = {
-  set heading(supplement: [Chapter])
+  show heading.where(level: 1): set heading(supplement: it => context {
+    if in-appendix-part.at(it.location()) {
+      return "Appendix"
+    } else {
+      return "Chapter"
+    }
+  })
+  show heading.where(level: 2): set heading(supplement: [Section])
+  show heading.where(level: 3): set heading(supplement: [Subsection])
 
   set page(
     header: context {
@@ -267,7 +282,9 @@
 }
 
 #let appendix(body) = {
-  set heading(numbering: "A", supplement: [Appendix])
+  in-appendix-part.update(true)
+  set heading(numbering: "A")
+
   counter(heading).update(0)
 
   set math.equation(numbering: (..num) => numbering("(A.1)", counter(heading).get().first(), num.pos().first()))
@@ -371,9 +388,9 @@
     stroke: none,
     align: (right, left, left),
     [Student number:], table.cell(colspan: 2)[#student_number],
-    [Project Duration:], table.cell(colspan: 2)[#project_duration],
-    [Daily Supervisor:], table.cell(colspan: 2)[#daily_supervisor],
-    [Thesis Committee:],
+    [Project duration:], table.cell(colspan: 2)[#project_duration],
+    [Daily supervisor:], table.cell(colspan: 2)[#daily_supervisor],
+    [Thesis committee:],
     table.cell(rowspan: 3, colspan: 2)[#table(columns: (
         4cm,
         4cm,

@@ -65,7 +65,9 @@
   )
 
   set heading(numbering: "1.1.1")
-  show heading: set block(above: 1em, below: .5em + 5pt)
+  show heading.where(level: 1): set block(above: 1em, below: .5em + 5pt)
+  show heading.where(level: 2): set block(above: 1.5em, below: .5em + 5pt)
+  show heading.where(level: 3): set block(above: 1.5em, below: .5em + 5pt)
 
   show heading.where(level: 2): it => {
     set text(size: LARGE)

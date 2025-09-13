@@ -155,7 +155,8 @@
   // if caption size is longer than page, justify left
 
   show figure.caption: c => context {
-    if measure(c).width > (page.width - page.margin.left - page.margin.right) {
+    let pagewidth = if page.flipped { page.height } else { page.width }
+    if measure(c).width > (pagewidth - page.margin.left - page.margin.right) {
       set align(left)
       c
     } else {

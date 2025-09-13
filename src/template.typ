@@ -448,3 +448,9 @@
 
   align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]
 }
+
+#let switch-page-numbering(body) = {
+  set page(numbering: "1")
+  counter(page).update(1)
+  body
+}

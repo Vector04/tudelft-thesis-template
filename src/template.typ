@@ -319,6 +319,10 @@
   body
 }
 
+#let doubleline = table.hline.with(stroke: stroke(thickness: 4pt, paint: tiling(
+  size: (30pt, 5pt),
+  [#rect(width: auto, height: 3pt, stroke: (y: 1pt + black))],
+)))
 
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),

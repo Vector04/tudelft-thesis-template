@@ -98,12 +98,27 @@
       return it
     }
 
+    let el = it.element
     show regex("([0-9]+\.[0-9]+\.[0-9]+)|([0-9]+\.[0-9]+)|([0-9]+)|[A-Z]\.[0-9]+"): set text(fill: olive)
 
     // First check if it.element has "kind", which is not the case for footnotes.
-    if (it.element.has("kind")) and it.element.kind == math.equation {
+    // Add parentheses to equations
+    if (el.has("kind")) and el.kind == math.equation {
       show regex("^(\d+)(\.(\d+))*(\/(\d+))*-(\d+)$"): x => "(" + x + ")"
       it
+    } // Change heading so that number (or letter) is olive-colored
+    else if el.func() == heading {
+      return link(
+        it.target,
+        [#el.supplement~#text(fill: olive, numbering(el.numbering, ..counter(heading).at(it.target)))],
+      )
+    } // Change figures so that supplement supplie during citation call is appended to output and olive-colored
+    else if (el.func() == figure) and (el.kind != math.equation) {
+      let the-numbering = if in-appendix-part.at(it.target) { "A.1" } else { "1.1" }
+      let the-numbers = (counter(heading).at(it.target).at(0), ..el.counter.at(it.target))
+      link(it.target, [#el.supplement~#text(fill: olive)[#numbering(the-numbering, ..the-numbers)#{
+            if it.supplement != auto { it.supplement }
+          }]])
     } else {
       it
     }
@@ -198,6 +213,7 @@
 }
 
 #let report(body) = {
+  // Note: alternative way of achieving this is described in https://typst.app/docs/reference/model/ref/ -> supplement -> View example
   show heading.where(level: 1): set heading(supplement: it => context {
     if in-appendix-part.at(it.location()) {
       return "Appendix"

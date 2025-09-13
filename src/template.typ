@@ -246,7 +246,7 @@
       if currpage not in chapterpages [
         #headings.at(-1, default: "") #h(1fr) Victor Vreede
         #v(-3pt)
-        #line(length: 100%)
+        #line(stroke: 1pt, length: 100%)
         #v(-5pt)
       ]
     },

@@ -327,6 +327,7 @@
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),
   title: none,
+  subtitle: none,
   name: none,
 ) = context {
   let pw = page.width
@@ -345,14 +346,20 @@
     0%,
     50%,
   ))[
-    #text(fill: white, size: 45pt, font: "Roboto Slab", weight: "light")[
-      #title
-    ]
+    #text(fill: white, size: 45pt, font: "Roboto Slab", weight: "extralight", [#title])
     #linebreak()
-    #v(10pt)
-    #text(fill: white, size: 30pt, font: "Roboto Slab", weight: "light")[
-      #name
-    ]
+    #linebreak()
+
+    #if (subtitle != none) {
+      text(fill: white, size: 20pt, font: "Roboto Slab", weight: "light", subtitle)
+      linebreak()
+      v(-5pt)
+      linebreak()
+    } else {
+      v(-10pt)
+    }
+
+    #text(fill: white, size: 30pt, font: "Roboto Slab", weight: "extralight", name)
   ])
 
 
@@ -372,24 +379,31 @@
 
 #let maketitlepage(
   title: none,
+  subtitle: none,
   name: none,
   defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
   student_number: none,
   project_duration: none,
   daily_supervisor: none,
   cover_description: none,
+  publicity-satement: [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").],
   ..thesis_committee,
 ) = {
   show par: set align(center)
-  set par(spacing: 1.3em, justify: false)
+  set par(spacing: 1.1em, justify: false) //, leading: 0.65em)
   set page(margin: (bottom: 0pt))
 
-  text(size: 40pt, font: "Roboto Slab", weight: "light")[#title]
-  v(-15pt)
-
+  text(size: 40pt, font: "Roboto Slab", weight: "extralight")[#title]
+  if (subtitle != none) {
+    v(-15pt)
+    text(size: 20pt, font: "Roboto Slab", weight: "light")[#subtitle]
+  }
+  parbreak()
+  // v(10pt)
   [by]
   parbreak()
-  text(size: 25pt, font: "Roboto Slab", weight: "light")[#name]
+  // v(10pt)
+  text(size: 25pt, font: "Roboto Slab", weight: "extralight")[#name]
   parbreak()
   [to obtain the degree of Master of Science]
   //ter verkrijging van de graad van Master of Science
@@ -407,7 +421,7 @@
   //   auto,
   //   float: true,
   align(center)[#table(
-    columns: (4cm, 4cm, 4cm),
+    columns: (auto, auto, auto),
     stroke: none,
     align: (right, left, left),
     [Student number:], table.cell(colspan: 2)[#student_number],
@@ -415,12 +429,12 @@
     [Daily supervisor:], table.cell(colspan: 2)[#daily_supervisor],
     [Thesis committee:],
     table.cell(rowspan: 3, colspan: 2)[#table(columns: (
-        4cm,
-        4cm,
+        auto,
+        auto,
       ), stroke: none, align: (
         left,
         left,
-      ), inset: 0pt, row-gutter: 10pt, ..thesis_committee)],
+      ), inset: 0pt, row-gutter: 10pt, column-gutter: 10pt, ..thesis_committee)],
   )]
   // )
 
@@ -429,7 +443,7 @@
   [Cover: #cover_description]
 
   v(1fr)
-  [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").]
+  [#publicity-satement]
   // v()
 
   align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]

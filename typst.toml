@@ -1,10 +1,10 @@
 [package]
-name = "victor-thesis"
+name = "tudelft-thesis"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Victor Vreede"]
-license = "MIT"
-description = "Victor's template for a thesis written in Typst"
+license = "CC-BY-NC"
+description = "A template for a thesis report in TU Delft style."
 compiler = "0.13.1"
 
 [template]

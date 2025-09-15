@@ -1,7 +1,4 @@
-#import "@preview/physica:0.9.4": *
-#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
 #import "@preview/equate:0.3.1": equate
-#import "@preview/mitex:0.2.5": *
 #import "@preview/wrap-it:0.1.1": wrap-content as wrap_content_original
 
 #let small = 10pt
@@ -24,7 +21,7 @@
 
   set page(
     paper: "a4",
-    margin: (x: 1in, y: 1in, top: 1in + 5pt),
+    margin: (x: 25mm, y: 25mm, top: 25mm + 5pt),
     numbering: "i",
   )
 
@@ -329,6 +326,12 @@
   title: none,
   subtitle: none,
   name: none,
+  main_titlebox_fill: color.hsv(
+    0deg,
+    0%,
+    0%,
+    50%,
+  ),
 ) = context {
   let pw = page.width
   let ph = page.height
@@ -340,12 +343,7 @@
     #text(fill: white, font: "Roboto Slab")[Delft University of Technology]])
 
 
-  place(dy: 2cm, rect(width: 100%, inset: 30pt, fill: color.hsv(
-    0deg,
-    0%,
-    0%,
-    50%,
-  ))[
+  place(dy: 2cm, rect(width: 100%, inset: 30pt, fill: main_titlebox_fill)[
     #text(fill: white, size: 45pt, font: "Roboto Slab", weight: "extralight", [#title])
     #linebreak()
     #linebreak()

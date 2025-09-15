@@ -1,4 +1,17 @@
+// IMPORTS: Note: these imports need to repeated for every file used in the document.
+
+// Main Import for the template
 #import "@local/tudelft-thesis:0.1.0": *
+
+// Extra packages to your liking
+// Physics-reltated tools for equations
+#import "@preview/physica:0.9.4": *
+// Specifying quantities and units
+#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
+// Formatting of uncertainties
+#import "@preview/zero:0.4.0"
+
+
 
 #show: base.with(
   title: "My document",
@@ -14,21 +27,28 @@
 /* COVER PAGE */
 
 #makecoverpage(
+  // supply path to cover image
   img: image("img/cover-image.jpg"),
-  title: [My Document],
+  // These arguments speak for themselves
+  title: [Title of Thesis],
+  subtitle: [Subtitle],
   name: [Your Name],
+  // optional: change color to big box containing title, subtitle and name. Default is full black with 50% opacity.
+  // main_titlebox_fill: color.hsv(0deg, 0%, 63.92%, 50%)
 )
 
 /* TITLE PAGE */
 
 #maketitlepage(
-  title: [My Document],
+  title: [Title of Thesis],
+  subtitle: [Subtitle],
   name: "Your Name",
   defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
   student_number: 1234567,
   project_duration: [Starting month and year - Ending month and year],
   daily_supervisor: [Your Daily supervisor],
-  cover_description: [Space and stuff],
+  cover_description: [CRS-8 Dragon from ISS],
+  publicity-satement: none,
   [Supervisor 1],
   [TU Delft, Supervisor],
   [Committee member 2],
@@ -42,102 +62,27 @@
 
 
 #heading(numbering: none, [Preface])
-#lorem(250)
+
+// Your preface here
+// #lorem(250)
 
 
 
 #heading(numbering: none, [Abstract])
-#lorem(250)
+
+// Your Abstract here
+// #lorem(250)
 
 
 #outline()
 
-= Introduction
+#show: switch-page-numbering
 
-== Equations and packages
-
-Here follows a small overview of how different report elements look in this template.
-
-For example, here is a new paragraph containing two aligned equations:
-$
-  e^(pi i) & = -1 #<eulers_formula> \
-    (n+1)! & = integral_0^infinity t^n e^(-t) dif t #<cauchy_factorial>
-$
-Here @eulers_formula is Euler's formula, and @cauchy_factorial is Cauchy's formula for a factorial. Note that the ability to refer to them individually is via the `equate` package. If I want to specify certain quantities, this can be done via the `#qty` function. For example, an A4 paper is #qty("210", "mm") wide. To make writing frequently occurring physics notation easier, use shortcuts provided by the `physica` package:
-$
-  laplacian u = 1/c^2 dv(u, t, 2)
-$ <eq:wave_equation>
-@eq:wave_equation is also known as the wave equation.
-
-== Floating elements
-Tables and images can be inserted into the document via the `#figure` function. Here follow some examples, which are @fig:large-image and @fig:small-image.
-
-#figure(
-  image("img/sample-image.svg"),
-  caption: [An example of a large figure. Illustration by #link("https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[karem adem] on #link("https://unsplash.com/illustrations/planets-stars-and-space-aPazlNkm25o?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[Unsplash].],
-) <fig:large-image>
-
-
-
-#let fig = [
-  #figure(
-    image("img/sample-image.svg", width: 7cm),
-    caption: [An example of a small figure. Illustration by #link("https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[karem adem] on #link("https://unsplash.com/illustrations/planets-stars-and-space-aPazlNkm25o?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[Unsplash].],
-  ) <fig:small-image>
-]
-
-#wrap-content(
-  fig,
-  [For smaller figures, it is also possible wrap them within text. For example, @fig:small-image. #lorem(65)],
-  alignment: top + right,
-)
-
-== Referencing stuff
-
-
-
-== Motivation
-#lorem(100)
-
-Here is some more text. #strong[This is bold text]
-
-
-// Adding a figure
-
-#figure(
-  image("img/stress_field.svg"),
-  caption: [Stress fields of the Hertz model],
-  placement: auto,
-) <hertz-field>
-
-#figure(
-  image("img/stress_field.svg"),
-  caption: [Stress fields of the Hertz model with a very long caption spanning multiple words if I keep writting sufficiently much.],
-  placement: auto,
-) <hertz-field2>
-
-
-
-#figure(
-  table(
-    columns: 4,
-    [t], [1], [2], [3],
-    [y], [0.3s], [0.4s], [0.8s],
-  ),
-  caption: [Timing results],
-)
-
-
-=== Approach
-#lorem(100) Stress fields of ther Hertz model are shown in @hertz-field. I make a cool remark, #footnote[This is a footnote] <fn1> which I repeat. @fn1
-
-Here is are chemical formulae: #chem[CuCrP2S6] #chem[H2O]. I learned this from @yamanaka_nanoscale_2000. I have many references @asmatulu_characterization_2019@binnig_atomic_1986@boussinesq_application_1885
-
-
-= A new chapter #sym.dash investigation into nature
-
-#lorem(100)
-
+#include "./sections/1introduction.typ"
+#include "./sections/2theory.typ"
+#include "./sections/3methods.typ"
+#include "./sections/4results.typ"
+#include "./sections/5conclusion.typ"
 
 
 #bibliography("references.bib", style: "american-physics-society")
@@ -145,6 +90,5 @@ Here is are chemical formulae: #chem[CuCrP2S6] #chem[H2O]. I learned this from @
 
 #show: appendix
 
-= The first Appendix
+#include "./sections/6appendix.typ"
 
-= The second Appendix

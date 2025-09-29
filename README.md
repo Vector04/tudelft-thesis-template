@@ -1,6 +1,6 @@
-# Victor's Thesis template
 
-This repository provides a customizable Typst template for creating a professional thesis using typst
+
+This repository provides a Typst template to write a thesis in the TU Delft style. 
 
 ## Installation (For local use)
 1. Make sure you have typst installed.

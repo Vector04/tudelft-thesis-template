@@ -46,15 +46,22 @@
 /* TITLE PAGE */
 
 #maketitlepage(
+  // These first arguments are self-explenatory
   title: [Title of Thesis],
   subtitle: [Subtitle],
   name: "Your Name",
   defense_date: datetime.today().display("[weekday] [month repr:long] [day], [year]") + " at 10:00",
+  // These following arguments appear in a small table below the main title, subtitle, author
   student_number: 1234567,
   project_duration: [Starting month and year - Ending month and year],
   daily_supervisor: [Your Daily supervisor],
-  cover_description: [CRS-8 Dragon from ISS],
-  publicity-satement: none,
+  cover_description: [Photo by #link("https://unsplash.com/@thejoltjoker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash", "Johannes Andersson") on #link("https://unsplash.com/photos/two-brown-deer-beside-trees-and-mountain-UCd78vfC8vU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash", "Unsplash").
+  ],
+  // Some more options of a publicity statement:
+  // publicity-statement: [An electronic version of thesis is available at #link("https://repository.tudelft.nl", [`https://repository.tudelft.nl`]).],
+  // publicity-statement: smallcaps[This thesis is confidential and cannot be made public.],
+  publicity-statement: none,
+  // The final set of arguments form the content of a table outlining all your supervisors. You can add as little or many as you want.
   [Supervisor 1],
   [TU Delft, Supervisor],
   [Committee member 2],
@@ -63,8 +70,12 @@
   [TU Delft.],
 )
 
+// This report function contains further styles, setting the formatting of the chapter title, the header
 
-#show: report
+#show: report.with(
+  // The Left header of a page is the current chapter title. The Left header you can specify, I reccomend adding your name here.
+  rightheader: [Your name],
+)
 
 
 #heading(numbering: none, [Preface])

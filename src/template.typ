@@ -15,6 +15,10 @@
   name: none,
   email: none,
   date: datetime.today().display("[day] [month repr:long] [year]"),
+  main-font: "Stix Two Text",
+  math-font: "Stix Two Math",
+  ref-color: blue,
+  cite-color: olive,
   body,
 ) = {
   set document(title: title, author: name, date: none)
@@ -31,8 +35,8 @@
   /* === FONTS === */
   /* OPTION 1 */
 
-  set text(font: "STIX Two Text")
-  show math.equation: set text(font: "STIX Two Math")
+  set text(font: main-font)
+  show math.equation: set text(font: math-font)
 
   /* OPTION 2 */
 
@@ -86,7 +90,7 @@
 
   show cite: it => {
     // Only color the number, not the brackets.
-    show regex("\d+"): set text(fill: blue)
+    show regex("\d+"): set text(fill: cite-color)
     // or regex("[\p{L}\d+]+") when using the alpha-numerical style
     it
   }
@@ -98,24 +102,24 @@
     }
 
     let el = it.element
-    show regex("([0-9]+\.[0-9]+\.[0-9]+)|([0-9]+\.[0-9]+)|([0-9]+)|[A-Z]\.[0-9]+"): set text(fill: olive)
+    show regex("([0-9]+\.[0-9]+\.[0-9]+)|([0-9]+\.[0-9]+)|([0-9]+)|[A-Z]\.[0-9]+"): set text(fill: ref-color)
 
     // First check if it.element has "kind", which is not the case for footnotes.
     // Add parentheses to equations
     if (el.has("kind")) and el.kind == math.equation {
       show regex("^(\d+)(\.(\d+))*(\/(\d+))*-(\d+)$"): x => "(" + x + ")"
       it
-    } // Change heading so that number (or letter) is olive-colored
+    } // Change heading ref so that number (or letter) is colored by ref-color
     else if el.func() == heading {
       return link(
         it.target,
-        [#el.supplement~#text(fill: olive, numbering(el.numbering, ..counter(heading).at(it.target)))],
+        [#el.supplement~#text(fill: ref-color, numbering(el.numbering, ..counter(heading).at(it.target)))],
       )
-    } // Change figures so that supplement supplie during citation call is appended to output and olive-colored
+    } // Change figures so that supplement supplie during citation call is appended to output colored according to ref-color
     else if (el.func() == figure) and (el.kind != math.equation) {
       let the-numbering = if in-appendix-part.at(it.target) { "A.1" } else { "1.1" }
       let the-numbers = (counter(heading).at(it.target).at(0), ..el.counter.at(it.target))
-      link(it.target, [#el.supplement~#text(fill: olive)[#numbering(the-numbering, ..the-numbers)#{
+      link(it.target, [#el.supplement~#text(fill: ref-color)[#numbering(the-numbering, ..the-numbers)#{
             if it.supplement != auto { it.supplement }
           }]])
     } else {

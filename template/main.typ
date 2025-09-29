@@ -1,6 +1,7 @@
 // IMPORTS: Note: these imports need to repeated for every file used in the document.
 
 // Main Import for the template
+// Includes wrap-it and equate packages by default.
 #import "@local/tudelft-thesis:0.1.0": *
 
 // Extra packages to your liking
@@ -12,12 +13,17 @@
 #import "@preview/zero:0.4.0"
 
 
+// Base styling, containg the majority of typesetting including fonts, line sizes, heading sizes, styling of references, lists.
 
 #show: base.with(
   title: "My document",
   name: "Your Name",
   email: "yourname@example.com",
   date: "January 2024",
+  main-font: "Stix Two Text",
+  math-font: "Stix Two Math",
+  ref-color: blue,
+  cite-color: olive,
 )
 
 

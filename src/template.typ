@@ -15,48 +15,52 @@
   name: none,
   email: none,
   date: datetime.today().display("[day] [month repr:long] [year]"),
+  rightheader: none,
   main-font: "Stix Two Text",
   math-font: "Stix Two Math",
   ref-color: blue,
   cite-color: olive,
   body,
 ) = {
-  set document(title: title, author: name, date: none)
+  /* General document & Page setup */
+
+  set document(
+    title: title,
+    author: name,
+    date: none,
+  )
 
   set page(
     paper: "a4",
     margin: (x: 25mm, y: 25mm, top: 25mm + 5pt),
     numbering: "i",
+    header: context {
+      let currpage = here().page()
+      let chapterpages = query(heading.where(level: 1)).map(chapter => {
+        chapter.location().page()
+      })
+      let headings = query(heading.where(level: 1).before(here())).map(it => {
+        if it.numbering != none {
+          let num = numbering(it.numbering, ..counter(heading).at(it.location()))
+          smallcaps[#it.supplement #num: #it.body]
+        } else {
+          smallcaps[#it.body]
+        }
+      })
+
+
+      if currpage not in chapterpages and currpage > 2 [
+        #headings.at(-1, default: "") #h(1fr) #rightheader
+        #v(-3pt)
+        #line(stroke: 1pt, length: 100%)
+        #v(-5pt)
+      ]
+    },
   )
 
-  set text(size: normal, lang: "en", region: "GB")
+  /* Some main-text typography */
 
-
-  /* === FONTS === */
-  /* OPTION 1 */
-
-  set text(font: main-font)
-  show math.equation: set text(font: math-font)
-
-  /* OPTION 2 */
-
-  // set text(font: "Lora")
-  // show math.equation: set text(font: "New Computer Modern Math", size: 11.2pt)
-
-
-  /* OPTION 3 */
-  // set text(font: "XCharter")
-  // show math.equation: set text(font: "XCharter Math")
-  // set text(font: "PT Serif")
-
-  /* === END FONTS === */
-
-  show: equate.with(breakable: false, sub-numbering: false)
-  set math.equation(supplement: "Eq.")
-
-  set math.equation(numbering: (..num) => numbering("(1.1)", counter(heading).get().first(), num.pos().first()))
-
-  set figure(numbering: (..num) => numbering("1.1", counter(heading).get().first(), num.pos().first()))
+  set text(size: normal, lang: "en", region: "GB", font: main-font)
 
   set par(
     justify: true,
@@ -65,21 +69,24 @@
     leading: .77em,
   )
 
+  /* Equation formatting */
+
+  show math.equation: set text(font: math-font, size: normal)
+
+  show: equate.with(breakable: false, sub-numbering: false)
+  set math.equation(supplement: "Eq.")
+
+  /* Numbering by section of equations & Figures */
+
+  set math.equation(numbering: (..num) => numbering("(1.1)", counter(heading).get().first(), num.pos().first()))
+
+  set figure(numbering: (..num) => numbering("1.1", counter(heading).get().first(), num.pos().first()))
+
+  /* Heading formatting */
+
   set heading(numbering: "1.1.1")
-  show heading.where(level: 1): set block(above: 1em, below: .5em + 5pt)
-  show heading.where(level: 2): set block(above: 1.5em, below: .5em + 5pt)
-  show heading.where(level: 3): set block(above: 1.5em, below: .5em + 5pt)
 
-  show heading.where(level: 2): it => {
-    set text(size: LARGE)
-    it
-  }
-
-  show heading.where(level: 3): it => {
-    set text(size: Large)
-    it
-  }
-
+  // 1em spacing between number and heading title
   show heading: it => {
     if (it.depth >= 2) {
       block(counter(heading).display(it.numbering) + h(1em) + it.body)
@@ -87,6 +94,62 @@
       it
     }
   }
+
+  // Make level 2 and 3 headings larger, with more space around them and with proper supplement name
+  show heading.where(level: 2): set text(size: Large)
+  show heading.where(level: 3): set text(size: large)
+  show heading.where(level: 2): set block(above: 1.5em, below: .5em + 5pt)
+  show heading.where(level: 3): set block(above: 1.5em, below: .5em + 5pt)
+  show heading.where(level: 2): set heading(supplement: [Section])
+  show heading.where(level: 3): set heading(supplement: [Subsection])
+
+  // Level 1 headings: supplement chapter or appendix, depending on whether we are in appendix part.
+  show heading.where(level: 1): set heading(supplement: it => context {
+    if in-appendix-part.at(it.location()) {
+      return "Appendix"
+    } else {
+      return "Chapter"
+    }
+  })
+
+  // Fancy chapter title
+  show heading.where(level: 1): it => {
+    let chapternum = counter(heading).get().first()
+
+    pagebreak()
+    v(-30pt)
+    set par(justify: false)
+    box(
+      text(size: 25pt)[
+        #it.body
+      ],
+      width: 80%,
+    )
+    h(1fr)
+
+    if it.numbering != none {
+      text(size: 70pt, fill: rgb(80, 80, 80), weight: "semibold", font: "Lora")[
+        #numbering(it.numbering, chapternum)
+      ]
+    }
+    v(-6pt)
+    line(length: 100%)
+    v(10pt)
+  }
+
+  // For some reason, this needs to be after we have function for our fancy heading. Very weird.
+  // (Lines are neccesary for numbering-by-section)
+
+  show heading.where(level: 1): it => {
+    counter(figure.where(kind: raw)).update(0)
+    counter(figure.where(kind: table)).update(0)
+    counter(figure.where(kind: image)).update(0)
+    counter(math.equation).update(0)
+    it
+  }
+
+  /* Citations and reference formatting */
+
 
   show cite: it => {
     // Only color the number, not the brackets.
@@ -127,19 +190,7 @@
     }
   }
 
-  show regex(" - "): [ #sym.dash ]
-
-  set list(
-    indent: 6pt,
-    marker: (
-      [
-        #v(2.5pt) #circle(radius: 2pt, fill: white, stroke: 0.5pt + black)],
-      [‣],
-      [#sym.dash],
-    ),
-  )
-
-  /* FIGURE STYLING */
+  /* Figure styling */
   // Basic formatting of a caption, make first part bold, and use smaller font size
 
   show figure.caption: c => {
@@ -187,6 +238,49 @@
     }
   }
 
+  /* Outline styling */
+
+  show outline.entry: it => {
+    link(it.element.location())[
+      #it.indented(it.prefix(), it.inner(), gap: 1.4em)]
+  }
+
+  show outline.entry.where(level: 1): it => {
+    show repeat: none
+    v(11pt)
+    strong(it)
+  }
+
+  set outline.entry(fill: repeat([#h(2pt).#h(2pt)]))
+
+  /* Miscellaneous styling*/
+
+  show regex(" - "): [ #sym.dash ]
+
+  set list(
+    indent: 6pt,
+    marker: (
+      [
+        #v(2.5pt) #circle(radius: 2pt, fill: white, stroke: 0.5pt + black)],
+      [‣],
+      [#sym.dash],
+    ),
+  )
+
+  body
+}
+
+#let appendix(body) = {
+  in-appendix-part.update(true)
+  set heading(numbering: "A")
+
+  counter(heading).update(0)
+
+  set math.equation(numbering: (..num) => numbering("(A.1)", counter(heading).get().first(), num.pos().first()))
+
+  set figure(numbering: (..num) => numbering("A.1", counter(heading).get().first(), num.pos().first()))
+
+
   body
 }
 
@@ -214,105 +308,6 @@
   wrap_content_original(fixed, to-wrap, align: alignment, size: size, ..grid-kwargs)
 }
 
-#let report(rightheader: none, body) = {
-  // Note: alternative way of achieving this is described in https://typst.app/docs/reference/model/ref/ -> supplement -> View example
-  show heading.where(level: 1): set heading(supplement: it => context {
-    if in-appendix-part.at(it.location()) {
-      return "Appendix"
-    } else {
-      return "Chapter"
-    }
-  })
-  show heading.where(level: 2): set heading(supplement: [Section])
-  show heading.where(level: 3): set heading(supplement: [Subsection])
-
-  set page(
-    header: context {
-      let currpage = here().page()
-      let chapterpages = query(heading.where(level: 1)).map(chapter => {
-        chapter.location().page()
-      })
-      let headings = query(heading.where(level: 1).before(here())).map(it => {
-        if it.numbering != none {
-          let num = numbering(it.numbering, ..counter(heading).at(it.location()))
-          smallcaps[#it.supplement #num: #it.body]
-        } else {
-          smallcaps[#it.body]
-        }
-      })
-
-
-      if currpage not in chapterpages [
-        #headings.at(-1, default: "") #h(1fr) #rightheader
-        #v(-3pt)
-        #line(stroke: 1pt, length: 100%)
-        #v(-5pt)
-      ]
-    },
-  )
-
-  show heading.where(level: 1): it => {
-    let chapternum = counter(heading).get().first()
-
-    pagebreak()
-    v(-30pt)
-    set par(justify: false)
-    box(
-      text(size: 25pt)[
-        #it.body
-      ],
-      width: 80%,
-    )
-    h(1fr)
-
-    if it.numbering != none {
-      text(size: 70pt, fill: rgb(80, 80, 80), weight: "semibold", font: "Lora")[
-        #numbering(it.numbering, chapternum)
-      ]
-    }
-    line(length: 100%)
-  }
-
-  // For some reason, this needs to be after we have function for our fancy heading. Very weird.
-
-  show heading.where(level: 1): it => {
-    counter(figure.where(kind: raw)).update(0)
-    counter(figure.where(kind: table)).update(0)
-    counter(figure.where(kind: image)).update(0)
-    counter(math.equation).update(0)
-    it
-  }
-
-  show outline.entry: it => {
-    link(it.element.location())[
-      #it.indented(it.prefix(), it.inner(), gap: 1.4em)]
-  }
-
-  show outline.entry.where(level: 1): it => {
-    show repeat: none
-    v(11pt)
-    strong(it)
-  }
-
-  set outline.entry(fill: repeat([#h(2pt).#h(2pt)]))
-
-  body
-}
-
-#let appendix(body) = {
-  in-appendix-part.update(true)
-  set heading(numbering: "A")
-
-  counter(heading).update(0)
-
-  set math.equation(numbering: (..num) => numbering("(A.1)", counter(heading).get().first(), num.pos().first()))
-
-  set figure(numbering: (..num) => numbering("A.1", counter(heading).get().first(), num.pos().first()))
-
-
-  body
-}
-
 #let chem(body) = {
   show regex("[\d]+"): sub
   body
@@ -322,6 +317,7 @@
   size: (30pt, 5pt),
   [#rect(width: auto, height: 3pt, stroke: (y: 1pt + black))],
 )))
+
 
 #let makecoverpage(
   img: image("../template/img/cover-image.jpg"),

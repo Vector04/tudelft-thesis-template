@@ -20,6 +20,7 @@
   name: "Your Name",
   email: "yourname@example.com",
   date: "January 2024",
+  rightheader: "Your name",
   main-font: "Stix Two Text",
   math-font: "Stix Two Math",
   ref-color: blue,
@@ -64,13 +65,6 @@
   [TU Delft],
   [Committee member 3],
   [TU Delft.],
-)
-
-// This report function contains further styles, setting the formatting of the chapter title, the header
-
-#show: report.with(
-  // The Left header of a page is the current chapter title. The Left header you can specify, I reccomend adding your name here.
-  rightheader: [Your name],
 )
 
 

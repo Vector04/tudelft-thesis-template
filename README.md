@@ -12,7 +12,7 @@ Initialize the template, either via the web app directly or using
 ```
 typst init @preview/tudelft-thesis:0.1.0
 ```
-A small example of the template in action is given below. Please consult this document for a larger example of the thesis template in action. In addition, the default project also contains sufficient comments/annotations to get you started.
+A small example of the template in action is given below. Please consult [this](https://github.com/Vector04/tudelft-thesis-template/blob/master/docs/Manual.pdf) document for a larger example of the thesis template in action, with all options and details more thoroughly explained. In addition, the default project also contains sufficient comments/annotations to get you started.
 ```typst
 #import "@local/tudelft-thesis:0.1.0": *
 

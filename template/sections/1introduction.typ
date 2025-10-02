@@ -49,10 +49,9 @@ The page layout is set as A4, with margins of #qty("25", "mm"). As an A4 page is
 Tables and images can be inserted into the document via the `#figure` function. Here follow some examples, which are @fig:large-image and @fig:small-image. Please check out the source to understand how.
 
 #figure(
-  image("../img/sample-image.svg"),
-  caption: [An example of a large figure. Illustration by #link("https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[karem adem] on #link("https://unsplash.com/illustrations/planets-stars-and-space-aPazlNkm25o?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")[Unsplash].],
+  rect(place(center + horizon, [A rectangle of $70 times 160 "mm"$.]), width: 160mm, height: 70mm, stroke: 1pt + black),
+  caption: [An example of a large figure. Full-width figures should be #qty(160, "mm") wide.],
 ) <fig:large-image>
-
 
 
 #let fig = [
@@ -99,3 +98,9 @@ References are formatted as @yamanaka_nanoscale_2000. Several references are joi
 === Chemical formula
 
 Here is a chemical formula: #chem[H2O]. This works via a simple function ```typ #chem``` which subscripts all numbers.
+
+
+== Fonts
+
+The main font used in this template is `Stix Two Text`, `11pt`, with equations typeset using `STIX Two Math`. The large headings for title, subtitle and name on the cover and title pages are typeset using `Roboto`. The big numbers in chapter titles are typset using `Lora`. These fonts are included by default in the online typst editor, but should be installed when compiling locally.
+

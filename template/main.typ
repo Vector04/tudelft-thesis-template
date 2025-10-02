@@ -102,7 +102,11 @@
 #include "./sections/5conclusion.typ"
 
 
-#bibliography("references.bib", style: "american-physics-society")
+#bibliography(
+  "references.bib",
+  title: [References],
+  style: "american-physics-society",
+)
 
 
 #show: appendix

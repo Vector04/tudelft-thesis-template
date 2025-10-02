@@ -54,6 +54,15 @@
   student_number: 1234567,
   project_duration: [Starting month and year - Ending month and year],
   daily_supervisor: [Your Daily supervisor],
+  // The thesis committee should be an array of contents, consisting of all the committee members and their affiliations
+  thesis_committee: (
+    [Supervisor 1],
+    [TU Delft, Supervisor],
+    [Committee member 2],
+    [TU Delft],
+    [Committee member 3],
+    [TU Delft.],
+  ),
   cover_description: [Photo by #link("https://unsplash.com/@thejoltjoker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash", "Johannes Andersson") on #link("https://unsplash.com/photos/two-brown-deer-beside-trees-and-mountain-UCd78vfC8vU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash", "Unsplash").
   ],
   // Some more options of a publicity statement:
@@ -61,12 +70,6 @@
   // publicity-statement: smallcaps[This thesis is confidential and cannot be made public.],
   publicity-statement: none,
   // The final set of arguments form the content of a table outlining all your supervisors. You can add as little or many as you want.
-  [Supervisor 1],
-  [TU Delft, Supervisor],
-  [Committee member 2],
-  [TU Delft],
-  [Committee member 3],
-  [TU Delft.],
 )
 
 /* Remaining contents of front matter */

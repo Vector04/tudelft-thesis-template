@@ -378,9 +378,9 @@
   student_number: none,
   project_duration: none,
   daily_supervisor: none,
+  thesis_committee: none,
   cover_description: none,
   publicity-statement: [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").],
-  ..thesis_committee,
 ) = {
   show par: set align(center)
   set par(spacing: 1.1em, justify: false) //, leading: 0.65em)

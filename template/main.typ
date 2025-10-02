@@ -1,7 +1,8 @@
-// IMPORTS: Note: these imports need to repeated for every file used in the document.
+/* Imports: */
+// Note: these imports need to repeated for every file used in the document.
 
-// Main Import for the template
-// Includes wrap-it and equate packages by default.
+// Main import of the template
+// This import contains the wrap-it and equate packages by default.
 #import "@local/tudelft-thesis:0.1.0": *
 
 // Extra packages to your liking
@@ -68,7 +69,7 @@
   [TU Delft.],
 )
 
-/* Remaining contents of fron matter */
+/* Remaining contents of front matter */
 
 #heading(numbering: none, [Preface])
 
@@ -85,10 +86,11 @@
 
 #outline()
 
-// * After the front matter is complete, we switch page numbering from roman to arabic numbering, and restart counting. The next chapter created afterwards starts on page 1.
+// After the front matter is complete, we switch page numbering from roman to arabic numbering, and restart counting. The next chapter created afterwards starts on page 1.
 
 #show: switch-page-numbering
 
+#include "./sections/0default-template.typ" // Comment out this line when you start writing
 #include "./sections/1introduction.typ"
 #include "./sections/2theory.typ"
 #include "./sections/3methods.typ"

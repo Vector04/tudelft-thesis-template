@@ -75,4 +75,4 @@ The template code and starting template files are licensed under the MIT-0 Licen
 
 I do not own the copyright to the TU Delft logo. 
 
-The assets used as placeholders in the template are by [Johannes Andersson]("https://unsplash.com/@thejoltjoker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash") and [karem adem]("https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash").
+The assets used as placeholders in the template are by [Johannes Andersson](https://unsplash.com/@thejoltjoker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) and [karem adem](https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).

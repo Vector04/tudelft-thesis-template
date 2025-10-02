@@ -139,11 +139,9 @@
     ),
   )
 
+  /* FIGURE STYLING */
+  // Basic formatting of a caption, make first part bold, and use smaller font size
 
-  body
-}
-
-#let figures(body) = {
   show figure.caption: c => {
     text(size: small)[
       #context {
@@ -167,6 +165,7 @@
     }
   }
 
+  // Tables with caption on top
   show figure.where(kind: table): set figure.caption(position: top)
 
   let figure_spacing = 0.75em // Additional spacing between figures and the text, https://stackoverflow.com/questions/78622060/add-spacing-around-figure-in-typst
@@ -187,7 +186,6 @@
       )
     }
   }
-
 
   body
 }
@@ -216,7 +214,7 @@
   wrap_content_original(fixed, to-wrap, align: alignment, size: size, ..grid-kwargs)
 }
 
-#let report(body) = {
+#let report(rightheader: none, body) = {
   // Note: alternative way of achieving this is described in https://typst.app/docs/reference/model/ref/ -> supplement -> View example
   show heading.where(level: 1): set heading(supplement: it => context {
     if in-appendix-part.at(it.location()) {
@@ -245,7 +243,7 @@
 
 
       if currpage not in chapterpages [
-        #headings.at(-1, default: "") #h(1fr) Victor Vreede
+        #headings.at(-1, default: "") #h(1fr) #rightheader
         #v(-3pt)
         #line(stroke: 1pt, length: 100%)
         #v(-5pt)
@@ -388,7 +386,7 @@
   project_duration: none,
   daily_supervisor: none,
   cover_description: none,
-  publicity-satement: [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").],
+  publicity-statement: [An electronic version of this thesis is available at #link(" http://repository.tudelft.nl").],
   ..thesis_committee,
 ) = {
   show par: set align(center)
@@ -445,7 +443,7 @@
   [Cover: #cover_description]
 
   v(1fr)
-  [#publicity-satement]
+  [#publicity-statement]
   // v()
 
   align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]

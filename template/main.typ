@@ -26,10 +26,6 @@
   cite-color: olive,
 )
 
-
-
-#show: figures
-
 /* COVER PAGE */
 
 #makecoverpage(

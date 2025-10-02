@@ -13,8 +13,6 @@
 #let base(
   title: none,
   name: none,
-  email: none,
-  date: datetime.today().display("[day] [month repr:long] [year]"),
   rightheader: none,
   main-font: "Stix Two Text",
   math-font: "Stix Two Math",
@@ -27,7 +25,6 @@
   set document(
     title: title,
     author: name,
-    date: none,
   )
 
   set page(
@@ -120,7 +117,7 @@
     v(-30pt)
     set par(justify: false)
     box(
-      text(size: 25pt)[
+      text(size: huge)[
         #it.body
       ],
       width: 80%,

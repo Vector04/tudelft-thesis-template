@@ -12,7 +12,7 @@ This chapter summarizes the extra features available in this template.
 When first importing this template (during ```typ #import "@local/tudelft-thesis:0.1.0": *```)
 at the top of `main.typ`, several imports occur. These are:
 - `wrap-it`, version `0.1.1`. The function here are used, and slightly modified for proper caption sizing.
-- `equate`, version `0.3.1`. Is imported to enable multi-line equation numbering out of the box, and sets the defaults ```typc  show: equate.with(breakable: false, sub-numbering: false)```. For more information, please visit the documentation of equate.
+- `equate`, version `0.3.1`. Is imported to enable multi-line equation numbering out of the box, and sets the defaults ```typc  show: equate.with(breakable: false, sub-numbering: false)```. For more information, please visit the documentation of `equate`.
 
 In addition to these "included" imports, at the top of `main.typ`, the following packages are also imported:
 ```typc
@@ -39,14 +39,14 @@ Here @eulers_formula is Euler's formula, and @cauchy_factorial is Cauchy's formu
 $
   a^2 + b^2 = c^2
 $ <eq:pythagoras>
-If I want to specify certain quantities, this can be done via the `#qty` function.
+To specify quantities (with units) and uncertainties, please refer to the `unify` and `zero` packages.
 
 == Page layout
 
-The page layout is set as A4, with margins of #qty("25", "mm"). As an A4 page is #qty(210, "mm"), wide, full-width should take up #qty(160, "mm"). Each page that is not the start of a chapter has a header, containing the current chapter name on the left in #smallcaps[Smallcaps] font, and your name on the right side of the header. The bottom of the page contains the page number, which uses lowercase roman numerals in the front matter, and arabic numerals for the main text.
+The page layout is set as A4, with margins of #qty("25", "mm"). As an A4 page is #qty(210, "mm"), wide, full-width figures should be at most #qty(160, "mm") wide. Each page that is not the start of a chapter has a header, containing the current chapter name on the left in #smallcaps[Smallcaps] font, and your name on the right side of the header. The bottom of the page contains the page number, which uses lowercase roman numerals in the front matter, and arabic numerals for the main text.
 
 == Floating elements
-Tables and images can be inserted into the document via the `#figure` function. Here follow some examples, which are @fig:large-image and @fig:small-image. Please check out the source to understand how.
+Tables and images can be inserted into the document via the `#figure` function. Here follow some examples, which are @fig:large-image and @fig:small-image. Please check out the source code of this text to understand how.
 
 #figure(
   rect(place(center + horizon, [A rectangle of $70 times 160 "mm"$.]), width: 160mm, height: 70mm, stroke: 1pt + black),
@@ -63,9 +63,10 @@ Tables and images can be inserted into the document via the `#figure` function. 
 
 #wrap-content(
   fig,
-  [For smaller figures, it is also possible wrap them within text. For example, @fig:small-image. #lorem(65)],
+  [For smaller figures, it is also possible wrap them within text. For example, @fig:small-image. Below, a small table can be found. Note the alignment of the decimal columns achieved via the `zero` package. \ #lorem(60)],
   alignment: top + right,
 )
+
 #[
 
   // For numberical tables, I recommend using zero to format columns
@@ -92,15 +93,15 @@ Tables and images can be inserted into the document via the `#figure` function. 
 
 == Referencing stuff <sec:refs>
 
-Tables, Figures and Equations are numbered by section. When refering to one of these items, the number becomes green. For example, this is @sec:refs. For figures, it is possible to attach an additional supplement to a figure, for example @fig:large-image could have subfigures @fig:large-image[a], which you can specify via ```typ @fig:label[a]```.
+Tables, Figures and Equations are numbered by section. When refering to one of these items, the number becomes green (color is customizable). For example, this is @sec:refs and the afterwards we have @subsec:chem. For figures, it is possible to attach an additional supplement to a figure, for example @fig:large-image could have subpanels like @fig:large-image[a], which you can specify via ```typ @fig:label[a]```.
 References are formatted as @yamanaka_nanoscale_2000. Several references are joined according to @asmatulu_characterization_2019@binnig_atomic_1986@boussinesq_application_1885.
 
-=== Chemical formula
+=== Chemical formula <subsec:chem>
 
 Here is a chemical formula: #chem[H2O]. This works via a simple function ```typ #chem``` which subscripts all numbers.
 
 
 == Fonts
 
-The main font used in this template is `Stix Two Text`, `11pt`, with equations typeset using `STIX Two Math`. The large headings for title, subtitle and name on the cover and title pages are typeset using `Roboto`. The big numbers in chapter titles are typset using `Lora`. These fonts are included by default in the online typst editor, but should be installed when compiling locally.
+The main font used in this template is `Stix Two Text`, `11pt`, with equations typeset using `STIX Two Math`. The large headings for title, subtitle and name on the cover and title pages are typeset using `Roboto`. The big numbers in chapter titles are typset using `Lora`. These fonts are included by default in the online typst editor, but should be installed when compiling locally. In addition, the main text and math fonts are customizable.
 

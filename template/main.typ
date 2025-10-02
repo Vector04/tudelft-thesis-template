@@ -13,21 +13,22 @@
 #import "@preview/zero:0.4.0"
 
 
-// Base styling, containg the majority of typesetting including fonts, line sizes, heading sizes, styling of references, lists.
-
+// Main styling, containg the majority of typesetting including document layout, fonts, heading styling, figure styling, outline styling, etc. Some parts of the styling are customizable.
 #show: base.with(
+  // These first two parameters are only used for the pdf metadata.
   title: "My document",
   name: "Your Name",
-  email: "yourname@example.com",
-  date: "January 2024",
+  // What is displayed at the top-right of the page. The top-left of the page displays the current chapter.
   rightheader: "Your name",
+  // Main and math fonts
   main-font: "Stix Two Text",
   math-font: "Stix Two Math",
-  ref-color: blue,
-  cite-color: olive,
+  // Colors used for internal references (figures, equations, sections) and citations
+  ref-color: olive,
+  cite-color: blue,
 )
 
-/* COVER PAGE */
+/* Cover page */
 
 #makecoverpage(
   // supply path to cover image
@@ -37,10 +38,10 @@
   subtitle: [Subtitle],
   name: [Your Name],
   // optional: change color to big box containing title, subtitle and name. Default is full black with 50% opacity.
-  // main_titlebox_fill: color.hsv(0deg, 0%, 63.92%, 50%)
+  // main_titlebox_fill: color.hsv(0deg, 0%, 0%, 50%)
 )
 
-/* TITLE PAGE */
+/* Title page */
 
 #maketitlepage(
   // These first arguments are self-explenatory
@@ -67,6 +68,7 @@
   [TU Delft.],
 )
 
+/* Remaining contents of fron matter */
 
 #heading(numbering: none, [Preface])
 
@@ -82,6 +84,8 @@
 
 
 #outline()
+
+// * After the front matter is complete, we switch page numbering from roman to arabic numbering, and restart counting. The next chapter created afterwards starts on page 1.
 
 #show: switch-page-numbering
 

@@ -10,11 +10,11 @@ This repository provides a Typst template to write a thesis in the TU Delft styl
 Initialize the template, either via the web app directly or using
 
 ```
-typst init @preview/tudelft-thesis:0.1.0
+typst init @preview/classy-tudelft-thesis:0.1.0
 ```
 A small example of the template in action is given below. Please consult [this](https://github.com/Vector04/tudelft-thesis-template/blob/master/docs/Manual.pdf) document for a larger example of the thesis template in action, with all options and details more thoroughly explained. In addition, the default project also contains sufficient comments/annotations to get you started.
 ```typst
-#import "@local/tudelft-thesis:0.1.0": *
+#import "@preview/tudelft-thesis:0.1.0": *
 
 // Main styling, containg the majority of typesetting including document layout, fonts, heading styling, figure styling, outline styling, etc. Some parts of the styling are customizable.
 #show: base.with(
@@ -71,4 +71,8 @@ The template code and starting template files are licensed under the MIT-0 Licen
 
 I do not own the copyright to the TU Delft logo. 
 
+## Acknowledgements 
+
 The assets used as placeholders in the template are by [Johannes Andersson](https://unsplash.com/@thejoltjoker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) and [karem adem](https://unsplash.com/@fezeikahapra?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash).
+
+The layout was inspired by the LaTeX TU Delft template by [Daan Zwaneveld](https://github.com/dzwaneveld/tudelft-report-thesis-template).

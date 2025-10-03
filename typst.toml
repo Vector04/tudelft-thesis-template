@@ -1,14 +1,17 @@
 [package]
-name = "tudelft-thesis"
+name = "classy-tudelft-thesis"
 version = "0.1.0"
-entrypoint = "src/lib.typ"
-authors = ["Victor Vreede"]
-license = "CC-BY-NC"
-description = "A template for a thesis report in TU Delft style."
+entrypoint = "src/template.typ"
+authors = ["@Vector04"]
+license = "MIT-0"
+description = "A classy thesis report in TU Delft style."
 compiler = "0.13.1"
+repository = "https://github.com/Vector04/tudelft-thesis-template"
+keywords = ["TU Delft", "Delft University of Technology", "Bachelor Thesis", "Master Thesis"]
+categories = ["thesis", "report"]
 
 [template]
 path = "template"
-entrypoint = "doc.typ"
-thumbnail = "thumbnail.png"
+entrypoint = "main.typ"
+thumbnail = "docs/thumbnail.png"
 

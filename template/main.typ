@@ -3,7 +3,7 @@
 
 // Main import of the template
 // This import contains the wrap-it and equate packages by default.
-#import "@local/tudelft-thesis:0.1.0": *
+#import "@preview/classy-tudelft-thesis:0.1.0": *
 
 // Extra packages to your liking
 // Physics-reltated tools for equations
@@ -45,7 +45,7 @@
 /* Title page */
 
 #maketitlepage(
-  // These first arguments are self-explenatory
+  // These first arguments are self-explanatory
   title: [Title of Thesis],
   subtitle: [Subtitle],
   name: "Your Name",

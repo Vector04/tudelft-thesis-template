@@ -18,6 +18,8 @@
   math-font: "Stix Two Math",
   ref-color: blue,
   cite-color: olive,
+  language: "en",
+  region: "GB",
   body,
 ) = {
   /* General document & Page setup */
@@ -57,7 +59,7 @@
 
   /* Some main-text typography */
 
-  set text(size: normal, lang: "en", region: "GB", font: main-font)
+  set text(size: normal, lang: language, region: region, font: main-font)
 
   set par(
     justify: true,
@@ -407,12 +409,7 @@
   [to be defended publicly on #defense_date]
   //in het openbaar de verdedigen op maandag 1 januari om 10:00 uur.
   v(40pt)
-  // [..#thesis_committee]
-  // let thesis_committee = ([p1], [p2], [p3], [p4])
 
-  // place(
-  //   auto,
-  //   float: true,
   align(center)[#table(
     columns: (auto, auto, auto),
     stroke: none,
@@ -429,7 +426,6 @@
         left,
       ), inset: 0pt, row-gutter: 10pt, column-gutter: 10pt, ..thesis_committee)],
   )]
-  // )
 
   v(20pt)
 
@@ -437,7 +433,6 @@
 
   v(1fr)
   [#publicity-statement]
-  // v()
 
   align(center)[#image("../template/img/TUDelft_logo_black.svg", width: 4.5cm)]
 }

@@ -27,6 +27,9 @@
   // Colors used for internal references (figures, equations, sections) and citations
   ref-color: olive,
   cite-color: blue,
+  // Language, used for correct hyphenation patterns and default word for outline title, etc.
+  language: "en",
+  region: "GB",
 )
 
 /* Cover page */

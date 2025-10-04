@@ -9,6 +9,7 @@ compiler = "0.13.1"
 repository = "https://github.com/Vector04/tudelft-thesis-template"
 keywords = ["TU Delft", "Delft University of Technology", "Bachelor Thesis", "Master Thesis"]
 categories = ["thesis", "report"]
+exclude = ["docs/*"]
 
 [template]
 path = "template"

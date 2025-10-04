@@ -1,7 +1,7 @@
 [package]
 name = "classy-tudelft-thesis"
 version = "0.1.0"
-entrypoint = "src/template.typ"
+entrypoint = "src/lib.typ"
 authors = ["@Vector04"]
 license = "MIT-0"
 description = "A classy thesis report in TU Delft style."

@@ -1,6 +1,6 @@
 
 
-This repository provides a Typst template to write a thesis in the TU Delft style. This is an unofficial template, not affiliated with the TU Delft.
+This is a template to write a thesis in the TU Delft style. It is an unofficial template, not affiliated with the TU Delft.
 
 | Cover page               | Title page               | Main text                |
 |--------------------------|--------------------------|--------------------------|

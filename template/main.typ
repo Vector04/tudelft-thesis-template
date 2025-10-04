@@ -7,11 +7,11 @@
 
 // Extra packages to your liking
 // Physics-reltated tools for equations
-#import "@preview/physica:0.9.4": *
+#import "@preview/physica:0.9.6": *
 // Specifying quantities and units
-#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
+#import "@preview/unify:0.7.1": num, numrange, qty, qtyrange
 // Formatting of uncertainties
-#import "@preview/zero:0.4.0"
+#import "@preview/zero:0.5.0"
 
 
 // Main styling, containg the majority of typesetting including document layout, fonts, heading styling, figure styling, outline styling, etc. Some parts of the styling are customizable.

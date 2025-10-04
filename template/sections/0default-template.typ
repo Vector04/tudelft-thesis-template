@@ -1,7 +1,7 @@
 #import "@preview/classy-tudelft-thesis:0.1.0": *
-#import "@preview/physica:0.9.4": *
-#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
-#import "@preview/zero:0.4.0"
+#import "@preview/physica:0.9.6": *
+#import "@preview/unify:0.7.1": num, numrange, qty, qtyrange
+#import "@preview/zero:0.5.0"
 
 
 = Introduction
@@ -17,11 +17,11 @@ at the top of `main.typ`, several imports occur. These are:
 In addition to these "included" imports, at the top of `main.typ`, the following packages are also imported:
 ```typc
 // Physics-reltated tools for equations
-#import "@preview/physica:0.9.4": *
+#import "@preview/physica:0.9.6": *
 // Specifying quantities and units
-#import "@preview/unify:0.7.0": num, numrange, qty, qtyrange
+#import "@preview/unify:0.7.1": num, numrange, qty, qtyrange
 // Formatting of uncertainties
-#import "@preview/zero:0.4.0"
+#import "@preview/zero:0.5.0"
 
 ```
 For more imformation on these packages, please consult their documentation.
